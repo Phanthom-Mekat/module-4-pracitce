@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio and Video Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        audio, video {
+            margin: 20px 0;
+            border: 4px solid #000;
+            border-radius: 10px;
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        iframe {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        #visualizer {
+            width: 100%;
+            height: 200px;
+            background-color: #ffffff;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Audio, Video, and iframe Practice</h2>
+    <main>
+        <audio id="audioPlayer" controls src="assets/media/in-slow-motion-inspiring-ambient-lounge-219592.mp3"></audio>
+        <canvas id="visualizer"></canvas>
+        <video width="100%" src="assets/media/11919723_1920_1080_24fps.mp4" controls></video>
+        <iframe loading="eager" width="560" height="315" src="https://www.youtube.com/embed/ClRjTtga8rg?si=5q614UU_T8VIK-GM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+        <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+        <div class="elfsight-app-71e3fb15-f7cc-4eb5-83c3-59bd08a11ee3" data-elfsight-app-lazy></div>
+    </main>
+
+    <script>
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const audioElement = document.getElementById('audioPlayer');
+        const visualizer = document.getElementById('visualizer');
+        const canvasCtx = visualizer.getContext('2d');
+
+        const analyser = audioContext.createAnalyser();
+        const source = audioContext.createMediaElementSource(audioElement);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        visualizer.width = visualizer.offsetWidth;
+        visualizer.height = visualizer.offsetHeight;
+
+        function draw() {
+            requestAnimationFrame(draw);
+
+            analyser.getByteFrequencyData(dataArray);
+
+            canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+            canvasCtx.fillRect(0, 0, visualizer.width, visualizer.height);
+
+            const barWidth = (visualizer.width / bufferLength) * 2.5;
+            let barHeight;
+            let x = 0;
+
+            for(let i = 0; i < bufferLength; i++) {
+                barHeight = dataArray[i] / 2;
+
+                canvasCtx.fillStyle = `rgb(${barHeight + 100},50,50)`;
+                canvasCtx.fillRect(x, visualizer.height - barHeight, barWidth, barHeight);
+
+                x += barWidth + 1;
+            }
+        }
+
+        audioElement.addEventListener('play', () => {
+            audioContext.resume().then(() => {
+                draw();
+            });
+        });
+    </script>
+</body>
+</html>
