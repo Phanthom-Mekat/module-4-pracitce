@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            display: block;
+            margin: 10px 0;
+        }
+
+        #q , #email, #phoneNumber{
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 3px solid #ccc;
+            border-radius: 5px;
+        }
+        #pitha{
+            display: inline-block;
+            margin: 10px 0;
+        }
+        legend{
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        fieldset{
+            border: 3px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 100%;
+        }
+        
+        #reset, #submit{
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 3px solid #ccc;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <header></header>
+    <main>
+        <section>
+            <h1>Fill Up The Form</h1>
+        </section>
+        <form action="">
+
+        <label for="name">Name:
+            <input type="text" id="q" placeholder="Your name" name="name">
+        </label>
+        <label for="email">Email:
+            <input type="email" id="email" placeholder="Your email" name="email">
+        </label>
+        <label for="phoneNumber">
+            Phone Number:
+            <input type="number" id="phoneNumber" placeholder="Your phone number" name="phoneNumber">
+        </label>
+
+        <fieldset>
+            <legend>
+               Select Pitha
+            </legend>
+            <label for="Pitha">
+                <input type="radio" id="pitha" name="Pitha" value="Chitoi Pitha">
+                Chitoi Pitha
+            </label>
+            <label for="Pitha">
+                <input type="radio" id="pitha" name="Pitha" value="Puli Pitha">
+                Puli Pitha
+            </label>
+            <label for="Pitha">
+                <input type="radio" id="pitha" name="Pitha" value="Vapa Pitha">
+                Vapa Pitha
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Select Vorta</legend>
+            <label for="Vorta">
+                <input type="checkbox" id="vorta" name="Vorta" value="Aam Vorta">
+                Aam Vorta
+            </label>
+            <label for="Vorta">
+                <input type="checkbox" id="vorta" name="Vorta" value="Lebu Vorta">
+                Lebu Vorta
+            </label>
+            <label for="Vorta">
+                <input type="checkbox" id="vorta" name="Vorta" value="Dhonepata Vorta">
+                Dhonepata Vorta
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Select Drinks</legend>
+            <label for="Drinks">
+                <select name="Drinks" id="drinks">
+                    <option value="Tea">Tea</option>
+                    <option value="Coffee">Coffee</option>
+                    <option value="Soft Drinks">Soft Drinks</option>
+                </select>
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Write your message</legend>
+            <label for="message">
+                <textarea name="message" id="message" cols="30" rows="2"></textarea>
+            </label>
+        </fieldset>
+        <input id="reset" type="reset" value="reset">
+        <input id="submit" type="submit" value="submit">
+    </form>
+    </main>
+
+
+
+    <footer></footer>
+
+</body>
+</html>
